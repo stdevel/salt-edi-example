@@ -1,0 +1,57 @@
+---
+- name: Install Salt
+  hosts: all
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Update system
+      zypper:
+        name: "*"
+        state: latest
+    - name: Fix keyboard layout
+      command: "/usr/bin/localectl set-keymap de-nodeadkeys"
+      changed_when: false
+    - name: Set timezone
+      command: "/usr/bin/timedatectl set-timezone Europe/Berlin"
+      changed_when: false
+    - name: Disable firewall as we also like to live dangerously
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no
+    - name: Update /etc/hosts
+      template:
+        src: hosts
+        dest: /etc/hosts
+    - name: Install Salt
+      zypper:
+        name: "{{ salt_packages }}"
+        state: present
+      vars:
+        salt_packages:
+        - salt-master
+    - name: Create reactor configuration
+      copy:
+        src: templates/reactor.conf
+        dest: /etc/salt/master.d/reactor.conf
+        owner: root
+        group: salt
+        mode: '0640'
+    - name: Create reactor directory
+      file:
+        path: /srv/reactor
+        state: directory
+        owner: root
+        group: salt
+    - name: Create auto-sign state
+      copy:
+        src: templates/auto-sign.sls
+        dest: /srv/reactor/auto-sign.sls
+        owner: root
+        group: salt
+        mode: '0640'
+    - name: Start Salt Master
+      service:
+        name: salt-master
+        state: started
+        enabled: true
