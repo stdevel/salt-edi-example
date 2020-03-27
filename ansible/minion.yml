@@ -1,8 +1,12 @@
 ---
 - name: Install Salt Minion
   hosts: all
-  gather_facts: false
   become: yes
+  handlers:
+    - name: restart_minion
+      service:
+        name: salt-minion
+        state: restarted
   tasks:
     - name: Update system
       zypper:
@@ -30,6 +34,7 @@
       vars:
         salt_packages:
         - salt-minion
+        - python3-pyinotify
     - name: Create Salt Minion configuration
       template:
         src: minion
@@ -42,3 +47,26 @@
         name: salt-minion
         state: started
         enabled: true
+    - name: Install Apache
+      zypper:
+        name: apache2
+    - name: Stage demo website
+      template:
+        src: index.html.j2
+        dest: /srv/www/htdocs/index.html
+        owner: root
+        group: root
+    - name: Start Apache
+      service:
+        name: apache2
+        state: started
+        enabled: true
+    - name: Stage beacons configuration
+      template:
+        src: beacons.conf
+        dest: /etc/salt/minion.d/beacons.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - restart_minion

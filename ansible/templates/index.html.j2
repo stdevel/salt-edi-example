@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>Salt Event-driven infrastructure example</title>
+</head>
+<body>
+<h1>Hi, my name is {{ ansible_fqdn }}</h1>
+<h2>System information</h2>
+<ul>
+<li>Memory: {{ ansible_memtotal_mb }} MB</li>
+<li>Distribution: {{ ansible_lsb['description'] }}</li>
+<li>IP address: {{ ansible_default_ipv4["address"] }}</li>
+</ul>
+See more details about this demo at <a href="https://github.com/stdevel/salt-edi-example">GitHub</a>!
+</body>
+</html>
