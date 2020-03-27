@@ -32,6 +32,8 @@ Vagrant.configure("2") do |config|
     client.vm.box = "generic/opensuse15"
     # rsync
     config.vm.synced_folder ".", "/vagrant", type: "rsync"
+    # forward webserver port
+    client.vm.network "forwarded_port", guest: 80, host: 8888
     # define additional private client network
     client.vm.network "private_network", ip: "192.168.25.101"
     client.vm.provider "virtualbox" do |vb|
