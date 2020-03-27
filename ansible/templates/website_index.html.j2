@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>Salt Event-driven infrastructure example</title>
+</head>
+<body>
+<h1>Hi, my name is {{ grains['fqdn'] }}</h1>
+<h2>System information</h2>
+<ul>
+<li>Memory: {{ grains['mem_total'] }} MB</li>
+<li>Distribution: {{ grains['oscodename'] }}</li>
+<li>IP address: {{ grains['ip4_interfaces']['eth0'][0] }}</li>
+</ul>
+See more details about this demo at <a href="https://github.com/stdevel/salt-edi-example">GitHub</a>!
+</body>
+</html>

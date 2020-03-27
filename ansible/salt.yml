@@ -37,16 +37,54 @@
         owner: root
         group: salt
         mode: '0640'
-    - name: Create reactor directory
+    - name: Create directories
       file:
-        path: /srv/reactor
+        path: "{{ item }}"
         state: directory
         owner: root
         group: salt
+      with_items:
+        - /srv/reactor
+        - /srv/salt/website
     - name: Create auto-sign state
       copy:
         src: templates/auto-sign.sls
         dest: /srv/reactor/auto-sign.sls
+        owner: root
+        group: salt
+        mode: '0640'
+    - name: Create Apache reactor
+      copy:
+        src: templates/reactor_restart_apache.sls
+        dest: /srv/reactor/restart_apache.sls
+        owner: root
+        group: salt
+        mode: '0640'
+    - name: Create Apache restart state
+      copy:
+        src: templates/state_restart_apache.sls
+        dest: /srv/salt/restart_apache2.sls
+        owner: root
+        group: salt
+        mode: '0640'
+    - name: Create website reactor
+      copy:
+        src: templates/reactor_restore_website.sls
+        dest: /srv/reactor/restore_website.sls
+        owner: root
+        group: salt
+        mode: '0640'
+    - name: Create website restore state
+      copy:
+        src: templates/state_restore_website.sls
+        dest: /srv/salt/restore_website.sls
+        owner: root
+        group: salt
+        mode: '0640'
+    - name: Create website template
+      copy:
+        src: templates/website_index.html.j2
+        dest: /srv/salt/website/index.html.j2
         owner: root
         group: salt
         mode: '0640'
