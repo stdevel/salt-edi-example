@@ -7,7 +7,7 @@
 <h2>System information</h2>
 <ul>
 <li>Memory: {{ ansible_memtotal_mb }} MB</li>
-<li>Distribution: {{ ansible_lsb['description'] }}</li>
+<li>Distribution: {{ ansible_distribution }} {{ ansible_distribution_version }}</li>
 <li>IP address: {{ ansible_default_ipv4["address"] }}</li>
 </ul>
 See more details about this demo at <a href="https://github.com/stdevel/salt-edi-example">GitHub</a>!
