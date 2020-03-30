@@ -83,7 +83,7 @@ To ensure that the Salt Master is informed about Apache2 status and website chan
 
 ### Explanation
 
-TODO: image
+![Salt Event-driven infrastructure workflow](workflow.jpg "Salt Event-driven infrastructure workflow")
 
 So what actually happens if the Apache2 service is stopped?
 
