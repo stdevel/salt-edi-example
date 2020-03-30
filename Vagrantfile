@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
     client.vm.network "private_network", ip: "192.168.25.101"
     client.vm.provider "virtualbox" do |vb|
        # customize the amount of memory on the VM:
-       vb.memory = "1024"
+       vb.memory = "768"
      end
     # install Ansible
     client.vm.provision "shell", inline: <<-SHELL
