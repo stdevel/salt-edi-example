@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
     SHELL
     # install Salt
     salt.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "ansible/salt.yml"
+      ansible.playbook = "automation/salt.yml"
     end
   end
 
@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
     SHELL
     # install Salt
     client.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "ansible/minion.yml"
+      ansible.playbook = "automation/minion.yml"
     end
   end
 

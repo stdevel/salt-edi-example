@@ -65,21 +65,21 @@ A very important file is `/etc/salt/master.d/reactor.conf` which defines the fol
 
 | Event | Description | State (`/srv/reactor`) |
 | ----- | ----------- | ----- |
-| `salt/auth` | new Minion tries to connect for the first time | [`auto-sign.sls`](ansible/templates/auto-sign.sls) |
-| `salt/beacon/*/service/apache2` | any client sends a beacon regarding Apache2 service state change | [`restart_apache.sls`](ansible/templates/reactor_restart_apache.sls) |
-| `salt/beacon/*/inotify//srv/www/htdocs/index.html` | change on website file | [`restore_website.sls`](ansible/templates/reactor_restore_website.sls) |
+| `salt/auth` | new Minion tries to connect for the first time | [`auto-sign.sls`](automation/templates/auto-sign.sls) |
+| `salt/beacon/*/service/apache2` | any client sends a beacon regarding Apache2 service state change | [`restart_apache.sls`](automation/templates/reactor_restart_apache.sls) |
+| `salt/beacon/*/inotify//srv/www/htdocs/index.html` | change on website file | [`restore_website.sls`](automation/templates/reactor_restore_website.sls) |
 
 In addition, the reactor states accomplish the following tasks:
 
 | Reactor state | Description |
 | ------------- | ----------- |
-| [`auto-sign.sls`](ansible/templates/auto-sign.sls) | automatically accepts minion key (*do __NOT__ use this on production*) |
-| [`restart_apache.sls`](ansible/templates/reactor_restart_apache.sls) | applies state [`/srv/salt/restart_apache.sls`](ansible/templates/state_restart_apache.sls) which ensures that the service is started |
-| [`restore_website.sls`](ansible/templates/state_restore_website.sls) | recovers website content with version from Salt Master ([`/srv/salt/website/index.html.j2`](ansible/templates/website_index.html.j2)) |
+| [`auto-sign.sls`](automation/templates/auto-sign.sls) | automatically accepts minion key (*do __NOT__ use this on production*) |
+| [`restart_apache.sls`](automation/templates/reactor_restart_apache.sls) | applies state [`/srv/salt/restart_apache.sls`](automation/templates/state_restart_apache.sls) which ensures that the service is started |
+| [`restore_website.sls`](automation/templates/state_restore_website.sls) | recovers website content with version from Salt Master ([`/srv/salt/website/index.html.j2`](automation/templates/website_index.html.j2)) |
 
 ### Salt Minion
 
-To ensure that the Salt Master is informed about Apache2 status and website changes, the Minion is configured to send beacons. This configuration is stored under [`/etc/salt/minion.d/beacons.conf`](ansible/templates/beacons.conf).
+To ensure that the Salt Master is informed about Apache2 status and website changes, the Minion is configured to send beacons. This configuration is stored under [`/etc/salt/minion.d/beacons.conf`](automation/templates/beacons.conf).
 
 ### Explanation
 
