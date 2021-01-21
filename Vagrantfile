@@ -5,8 +5,9 @@ Vagrant.configure("2") do |config|
   # deploy Salt VM
   config.vm.define "salt" do |salt|
     salt.vm.hostname = "salt.sva.de"
-    # use OpenSUSE 15.x box
+    # use OpenSUSE 15.2 box
     salt.vm.box = "generic/opensuse15"
+    salt.vm.box_version = "3.1.22"
     # rsync
     config.vm.synced_folder ".", "/vagrant", type: "rsync"
     # define additional private client network
@@ -28,8 +29,9 @@ Vagrant.configure("2") do |config|
   # deploy Client VM
   config.vm.define "client" do |client|
     client.vm.hostname = "client.sva.de"
-    # use OpenSUSE 15.x box
+    # use OpenSUSE 15.2 box
     client.vm.box = "generic/opensuse15"
+    client.vm.box_version = "3.1.22"
     # rsync
     config.vm.synced_folder ".", "/vagrant", type: "rsync"
     # forward webserver port
